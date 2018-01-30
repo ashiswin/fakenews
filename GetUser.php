@@ -8,4 +8,6 @@
 
 	$response['user'] = $UserConnector->select($id);
 	$response['success'] = true;
+
+	echo(json_encode($response));
 ?>

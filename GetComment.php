@@ -8,4 +8,6 @@
 
 	$response['comment'] = $CommentConnector->select($id);
 	$response['success'] = true;
+
+	echo(json_encode($response));
 ?>

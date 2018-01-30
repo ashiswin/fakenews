@@ -6,4 +6,6 @@
 
 	$response['articles'] = $ArticleConnector->selectAll();
 	$response['success'] = true;
+
+	echo(json_encode($response));
 ?>

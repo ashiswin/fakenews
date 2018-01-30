@@ -8,4 +8,6 @@
 
 	$response['comment'] = $CommentConnector->delete($id);
 	$response['success'] = true;
+
+	echo(json_encode($response));
 ?>
