@@ -5,13 +5,10 @@
 	$title = $_POST['title'];
 	$description = $_POST['description'];
 	$url_link = $_POST['url_link'];
-	$date_added = $_POST['date_added'];
-	$upvote = $_POST['upvote'];
-	$downvote = $_POST['downvote'];
 
 	$ArticleConnector = new ArticleConnector($conn);
 
-	if(!$ArticleConnector->create($title, $description, $url_link, $date_added, $upvote, $downvote)) {
+	if(!$ArticleConnector->create($title, $description, $url_link)) {
 		$response['success'] = false;
 		$response['message'] = "Failed to create article!";
 	}

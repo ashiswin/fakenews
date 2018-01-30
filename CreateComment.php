@@ -5,13 +5,10 @@
 	$userId = $_POST['userId'];
 	$content = $_POST['content'];
 	$title = $_POST['title'];
-	$date_added = $_POST['date_added'];
-	$upvote = $_POST['upvote'];
-	$downvote = $_POST['downvote'];
 
 	$CommentConnector = new CommentConnector($conn);
 
-	if(!$CommentConnector->create($userId, $content, $title, $date_added, $upvote, $downvote)) {
+	if(!$CommentConnector->create($userId, $content, $title)) {
 		$response['success'] = false;
 		$response['message'] = "Failed to create comment!";
 	}

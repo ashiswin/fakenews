@@ -24,14 +24,14 @@
 
 			$this->mysqli = $mysqli;
 
-			$this->createStatement = $mysqli->prepare("INSERT INTO " . CommentConnector::$TABLE_NAME . "(`" . CommentConnector::$COLUMN_USERID . "`,`" . CommentConnector::$COLUMN_CONTENT . "`,`" . CommentConnector::$COLUMN_TITLE . "`,`" . CommentConnector::$COLUMN_DATE_ADDED . "`,`" . CommentConnector::$COLUMN_UPVOTE . "`,`" . CommentConnector::$COLUMN_DOWNVOTE . "`) VALUES(?,?,?,?,?,?,?)");
+			$this->createStatement = $mysqli->prepare("INSERT INTO " . CommentConnector::$TABLE_NAME . "(`" . CommentConnector::$COLUMN_USERID . "`,`" . CommentConnector::$COLUMN_CONTENT . "`,`" . CommentConnector::$COLUMN_TITLE . "`) VALUES(?,?,?,?)");
 			$this->selectStatement = $mysqli->prepare("SELECT * FROM " . CommentConnector::$TABLE_NAME . " WHERE `" . CommentConnector::$COLUMN_ID . "` = ?");
 			$this->selectAllStatement = $mysqli->prepare("SELECT * FROM " . CommentConnector::$TABLE_NAME);
 			$this->deleteStatement = $mysqli->prepare("DELETE FROM " . CommentConnector::$TABLE_NAME . " WHERE `" . CommentConnector::$COLUMN_ID . "` = ?");
 		}
 
-		public function create($userId, $content, $title, $date_added, $upvote, $downvote) {
-			$this->createStatement->bind_param("isssii", $userId, $content, $title, $date_added, $upvote, $downvote);
+		public function create($userId, $content, $title) {
+			$this->createStatement->bind_param("iss", $userId, $content, $title);
 			return $this->createStatement->execute();
 		}
 

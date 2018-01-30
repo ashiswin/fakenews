@@ -24,14 +24,14 @@
 
 			$this->mysqli = $mysqli;
 
-			$this->createStatement = $mysqli->prepare("INSERT INTO " . ArticleConnector::$TABLE_NAME . "(`" . ArticleConnector::$COLUMN_TITLE . "`,`" . ArticleConnector::$COLUMN_DESCRIPTION . "`,`" . ArticleConnector::$COLUMN_URL_LINK . "`,`" . ArticleConnector::$COLUMN_DATE_ADDED . "`,`" . ArticleConnector::$COLUMN_UPVOTE . "`,`" . ArticleConnector::$COLUMN_DOWNVOTE . "`) VALUES(?,?,?,?,?,?,?)");
+			$this->createStatement = $mysqli->prepare("INSERT INTO " . ArticleConnector::$TABLE_NAME . "(`" . ArticleConnector::$COLUMN_TITLE . "`,`" . ArticleConnector::$COLUMN_DESCRIPTION . "`,`" . ArticleConnector::$COLUMN_URL_LINK . "`) VALUES(?,?,?,?)");
 			$this->selectStatement = $mysqli->prepare("SELECT * FROM " . ArticleConnector::$TABLE_NAME . " WHERE `" . ArticleConnector::$COLUMN_ID . "` = ?");
 			$this->selectAllStatement = $mysqli->prepare("SELECT * FROM " . ArticleConnector::$TABLE_NAME);
 			$this->deleteStatement = $mysqli->prepare("DELETE FROM " . ArticleConnector::$TABLE_NAME . " WHERE `" . ArticleConnector::$COLUMN_ID . "` = ?");
 		}
 
-		public function create($title, $description, $url_link, $date_added, $upvote, $downvote) {
-			$this->createStatement->bind_param("ssssii", $title, $description, $url_link, $date_added, $upvote, $downvote);
+		public function create($title, $description, $url_link) {
+			$this->createStatement->bind_param("sss", $title, $description, $url_link);
 			return $this->createStatement->execute();
 		}
 
