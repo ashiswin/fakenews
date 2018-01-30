@@ -31,7 +31,7 @@
 		}
 
 		public function create($userId, $content, $title, $date_added, $upvote, $downvote) {
-			$this->createStatement->bind_param("iss?ii", $userId, $content, $title, $date_added, $upvote, $downvote);
+			$this->createStatement->bind_param("isssii", $userId, $content, $title, $date_added, $upvote, $downvote);
 			return $this->createStatement->execute();
 		}
 
