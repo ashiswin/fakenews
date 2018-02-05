@@ -30,7 +30,7 @@
 			$this->selectStatement = $mysqli->prepare("SELECT * FROM " . ArticleConnector::$TABLE_NAME . " WHERE `" . ArticleConnector::$COLUMN_ID . "` = ?");
 			$this->selectAllStatement = $mysqli->prepare("SELECT * FROM " . ArticleConnector::$TABLE_NAME);
 			$this->deleteStatement = $mysqli->prepare("DELETE FROM " . ArticleConnector::$TABLE_NAME . " WHERE `" . ArticleConnector::$COLUMN_ID . "` = ?");
-			$this->addViewCountStatement = $mysqli->prepare("UPDATE " . CommentConnector::$TABLE_NAME . " SET `" . CommentConnector::$COLUMN_NO_VISITS . "` = `" . CommentConnector::$COLUMN_NO_VISITS . "`+1 WHERE `" . CommentConnector::$COLUMN_ID . "` =?");
+			$this->addViewCountStatement = $mysqli->prepare("UPDATE " . ArticleConnector::$TABLE_NAME . " SET `" . ArticleConnector::$COLUMN_NO_VISITS . "` = `" . ArticleConnector::$COLUMN_NO_VISITS . "`+1 WHERE `" . ArticleConnector::$COLUMN_ID . "` =?");
 		}
 
 		public function create($title, $description, $url_link) {
