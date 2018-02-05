@@ -66,7 +66,7 @@
 
 		public function updateChildren($id, $children) {
 			$this->updateChildrenStatement->bind_param("is", $id, $children);
-			if(!this->updateChildrenStatement->execute()) return false;
+			if(!$this->updateChildrenStatement->execute()) return false;
 
 			return true;
 		}
