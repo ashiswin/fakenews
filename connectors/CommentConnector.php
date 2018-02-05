@@ -17,7 +17,7 @@
 		private $createStatement = NULL;
 		private $selectStatement = NULL;
 		private $selectAllStatement = NULL;
-		private $updateStatement = NULL;
+		private $updateChildrenStatement = NULL;
 		private $deleteStatement = NULL;
 
 		function __construct($mysqli) {
@@ -31,6 +31,7 @@
 			$this->selectStatement = $mysqli->prepare("SELECT * FROM " . CommentConnector::$TABLE_NAME . " WHERE `" . CommentConnector::$COLUMN_ID . "` = ?");
 			$this->selectAllStatement = $mysqli->prepare("SELECT * FROM " . CommentConnector::$TABLE_NAME);
 			$this->deleteStatement = $mysqli->prepare("DELETE FROM " . CommentConnector::$TABLE_NAME . " WHERE `" . CommentConnector::$COLUMN_ID . "` = ?");
+			$this->updateChildrenStatement = $mysqli->prepare("UPDATE " . CommentConnector::$TABLE_NAME . " SET `" . CommentConnector::$COLUMN_CHILDREN . "` =? WHERE `" . CommentConnector::$COLUMN_ID . "` =?");
 		}
 
 		public function create($userId, $content, $title, $articleId, $child_of) {
@@ -59,6 +60,13 @@
 		public function delete($id) {
 			$this->deleteStatement->bind_param("i", $id);
 			if(!$this->deleteStatement->execute()) return false;
+
+			return true;
+		}
+
+		public function updateChildren($id, $children) {
+			$this->updateChildrenStatement->bind_param("is", $id, $children);
+			if(!this->updateChildrenStatement->execute()) return false;
 
 			return true;
 		}
