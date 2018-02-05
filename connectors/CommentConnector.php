@@ -11,6 +11,8 @@
 		public static $COLUMN_UPVOTE = "upvote";
 		public static $COLUMN_DOWNVOTE = "downvote";
 		public static $COLUMN_ARTICLEID = "articleId";
+		public static $COLUMN_CHILD_OF = "child_of";
+		public static $COLUMN_CHILDREN = "children";
 
 
 		private $createStatement = NULL;
