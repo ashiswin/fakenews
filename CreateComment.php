@@ -16,7 +16,7 @@
 
 		$CommentConnector = new CommentConnector($conn);
 
-		if(!$CommentConnector->create($userId, $content, $title, $articleId, $null)) {
+		if(!$CommentConnector->create($userId, $content, $title, $articleId, $child_of)) {
 			$response['success'] = false;
 			$response['message'] = "Failed to create comment!";
 		}
