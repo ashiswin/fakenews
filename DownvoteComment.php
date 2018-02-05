@@ -4,13 +4,12 @@
 
 	if (isset($_POST['id'])) {
 		$id = $_POST['id'];
-		$downvote = $_POST['downvote'];
 
 		$CommentConnector = new CommentConnector($conn);
 
-		if(!$CommentConnector->updateDownvote($id, $downvote)) {
+		if(!$CommentConnector->updateDownvote($id)) {
 			$response['success'] = false;
-			$response['message'] = "Failed to update comment downvote!";
+			$response['message'] = "Failed to downvote comment!";
 		}
 		else {
 			$response['success'] = true;

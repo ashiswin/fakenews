@@ -34,8 +34,8 @@
 			$this->selectAllStatement = $mysqli->prepare("SELECT * FROM " . CommentConnector::$TABLE_NAME);
 			$this->deleteStatement = $mysqli->prepare("DELETE FROM " . CommentConnector::$TABLE_NAME . " WHERE `" . CommentConnector::$COLUMN_ID . "` = ?");
 			$this->updateChildrenStatement = $mysqli->prepare("UPDATE " . CommentConnector::$TABLE_NAME . " SET `" . CommentConnector::$COLUMN_CHILDREN . "` =? WHERE `" . CommentConnector::$COLUMN_ID . "` =?");
-			$this->updateUpvoteStatement = $mysqli->prepare("UPDATE " . CommentConnector::$TABLE_NAME . " SET `" . CommentConnector::$COLUMN_UPVOTE . "` =? WHERE `" . CommentConnector::$COLUMN_ID . "` =?");
-			$this->updateDownvoteStatement = $mysqli->prepare("UPDATE " . CommentConnector::$TABLE_NAME . " SET `" . CommentConnector::$COLUMN_DOWNVOTE . "` =? WHERE `" . CommentConnector::$COLUMN_ID . "` =?");
+			$this->updateUpvoteStatement = $mysqli->prepare("UPDATE " . CommentConnector::$TABLE_NAME . " SET `" . CommentConnector::$COLUMN_UPVOTE . "` = `" . CommentConnector::$COLUMN_UPVOTE . "`+1 WHERE `" . CommentConnector::$COLUMN_ID . "` =?");
+			$this->updateDownvoteStatement = $mysqli->prepare("UPDATE " . CommentConnector::$TABLE_NAME . " SET `" . CommentConnector::$COLUMN_DOWNVOTE . "` = `" . CommentConnector::$COLUMN_DOWNVOTE . "`+1 WHERE `" . CommentConnector::$COLUMN_ID . "` =?");
 		}
 
 		public function create($userId, $content, $title, $articleId, $child_of) {
@@ -75,15 +75,15 @@
 			return true;
 		}
 
-		public function updateUpvote($id, $upvote) {
-			$this->updateUpvoteStatement->bind_param("ii", $upvote, $id);
+		public function updateUpvote($id) {
+			$this->updateUpvoteStatement->bind_param("i", $id);
 			if(!$this->updateUpvoteStatement->execute()) return false;
 
 			return true;
 		}
 
-		public function updateDownvote($id, $downvote) {
-			$this->updateDownvoteStatement->bind_param("ii", $downvote, $id);
+		public function updateDownvote($id) {
+			$this->updateDownvoteStatement->bind_param("i", $id);
 			if(!$this->updateDownvoteStatement->execute()) return false;
 
 			return true;
