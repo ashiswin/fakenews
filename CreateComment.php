@@ -11,7 +11,7 @@
 		if (isset($_POST['child_of'])) {
 			$child_of = $_POST['child_of'];
 		} else {
-			$child_of = null;
+			$child_of = NULL;
 		}
 
 		$CommentConnector = new CommentConnector($conn);
@@ -24,11 +24,11 @@
 			$response['success'] = true;
 
 			// Update parent
-			if ($child_of != null) {
+			if ($child_of != NULL) {
 				$comment_id = $conn->insert_id;
 				$parent = $CommentConnector->select($child_of);
 				$children = $parent['children'];
-				if ($children != null && $children != "0") {
+				if ($children != NULL && $children != "0") {
 					$children = $children . "," . $comment_id;
 				} else {
 					$children = $comment_id;

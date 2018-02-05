@@ -18,6 +18,8 @@
 		private $selectStatement = NULL;
 		private $selectAllStatement = NULL;
 		private $updateChildrenStatement = NULL;
+		private $updateUpvoteStatement = NULL;
+		private $updateDownvoteStatement = NULL;
 		private $deleteStatement = NULL;
 
 		function __construct($mysqli) {
@@ -32,6 +34,8 @@
 			$this->selectAllStatement = $mysqli->prepare("SELECT * FROM " . CommentConnector::$TABLE_NAME);
 			$this->deleteStatement = $mysqli->prepare("DELETE FROM " . CommentConnector::$TABLE_NAME . " WHERE `" . CommentConnector::$COLUMN_ID . "` = ?");
 			$this->updateChildrenStatement = $mysqli->prepare("UPDATE " . CommentConnector::$TABLE_NAME . " SET `" . CommentConnector::$COLUMN_CHILDREN . "` =? WHERE `" . CommentConnector::$COLUMN_ID . "` =?");
+			$this->updateUpvoteStatement = $mysqli->prepare("UPDATE " . CommentConnector::$TABLE_NAME . " SET `" . CommentConnector::$COLUMN_UPVOTE . "` =? WHERE `" . CommentConnector::$COLUMN_ID . "` =?");
+			$this->updateUpvoteStatement = $mysqli->prepare("UPDATE " . CommentConnector::$TABLE_NAME . " SET `" . CommentConnector::$COLUMN_DOWNVOTE . "` =? WHERE `" . CommentConnector::$COLUMN_ID . "` =?");
 		}
 
 		public function create($userId, $content, $title, $articleId, $child_of) {
@@ -67,6 +71,20 @@
 		public function updateChildren($id, $children) {
 			$this->updateChildrenStatement->bind_param("si", $children, $id);
 			if(!$this->updateChildrenStatement->execute()) return false;
+
+			return true;
+		}
+
+		public function updateUpvote($id, $upvote) {
+			$this->updateUpvoteStatement->bind_param("ii", $upvote, $id);
+			if(!$this->updateUpvoteStatement->execute()) return false;
+
+			return true;
+		}
+
+		public function updateDownvote($id, $downvote) {
+			$this->updateDownvoteStatement->bind_param("ii", $downvote, $id);
+			if(!$this->updateDownvoteStatement->execute()) return false;
 
 			return true;
 		}
