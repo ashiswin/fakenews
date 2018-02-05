@@ -37,9 +37,11 @@
 		public function select($id) {
 			$this->selectStatement->bind_param("i", $id);
 			if(!$this->selectStatement->execute()) return false;
-
-			return true;
+			$result = $this->selectStatement->get_result();
+			$resultArray = $result->fetch_all(MYSQLI_ASSOC);
+			return $resultArray;
 		}
+
 		public function selectAll() {
 			if(!$this->selectAllStatement->execute()) return false;
 			$result = $this->selectAllStatement->get_result();
