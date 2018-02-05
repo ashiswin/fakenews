@@ -30,7 +30,6 @@
 				$children = $parent['children'];
 				if ($children != null && $children != "0") {
 					$children = $children . "," . $comment_id;
-					$response['test'] = $children;
 				} else {
 					$children = $comment_id;
 				}
