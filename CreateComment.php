@@ -2,7 +2,7 @@
 	require_once 'utils/database.php';
 	require_once 'connectors/CommentConnector.php';
 
-	if (isset($_POST)) {
+	if (isset($_POST['userId'])) {
 		$userId = $_POST['userId'];
 		$articleId = $_POST['articleId'];
 		$content = $_POST['content'];
