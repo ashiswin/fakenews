@@ -13,7 +13,6 @@
 		if(!$CommentConnector->create($userId, $content, $title, $articleId)) {
 			$response['success'] = false;
 			$response['message'] = "Failed to create comment!";
-			$response['post'] = implode("", $_POST);
 		}
 		else {
 			$response['success'] = true;
