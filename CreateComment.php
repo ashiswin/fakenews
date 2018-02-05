@@ -17,10 +17,9 @@
 		else {
 			$response['success'] = true;
 		}
-
-		echo(json_encode($response));
 	} else {
 		$response['success'] = false;
 		$response['message'] = "POST empty";
  	}
+ 	echo(json_encode($response));
 ?>
