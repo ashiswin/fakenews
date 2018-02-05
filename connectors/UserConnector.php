@@ -23,7 +23,7 @@
 
 			$this->mysqli = $mysqli;
 
-			$this->createStatement = $mysqli->prepare("INSERT INTO " . UserConnector::$TABLE_NAME . "(`" . UserConnector::$COLUMN_FIRST_NAME . "`,`" . UserConnector::$COLUMN_LAST_NAME . "`,`" . UserConnector::$COLUMN_EMAIL . "`,`" . UserConnector::$COLUMN_PASSWORDHASH . "`,`" . UserConnector::$COLUMN_SALT . "`) VALUES(?,?,?,?,?,?)");
+			$this->createStatement = $mysqli->prepare("INSERT INTO " . UserConnector::$TABLE_NAME . "(`" . UserConnector::$COLUMN_FIRST_NAME . "`,`" . UserConnector::$COLUMN_LAST_NAME . "`,`" . UserConnector::$COLUMN_EMAIL . "`,`" . UserConnector::$COLUMN_PASSWORDHASH . "`,`" . UserConnector::$COLUMN_SALT . "`) VALUES(?,?,?,?,?)");
 			$this->selectStatement = $mysqli->prepare("SELECT * FROM " . UserConnector::$TABLE_NAME . " WHERE `" . UserConnector::$COLUMN_ID . "` = ?");
 			$this->selectAllStatement = $mysqli->prepare("SELECT * FROM " . UserConnector::$TABLE_NAME);
 			$this->deleteStatement = $mysqli->prepare("DELETE FROM " . UserConnector::$TABLE_NAME . " WHERE `" . UserConnector::$COLUMN_ID . "` = ?");

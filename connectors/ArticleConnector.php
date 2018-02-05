@@ -24,7 +24,7 @@
 
 			$this->mysqli = $mysqli;
 
-			$this->createStatement = $mysqli->prepare("INSERT INTO " . ArticleConnector::$TABLE_NAME . "(`" . ArticleConnector::$COLUMN_TITLE . "`,`" . ArticleConnector::$COLUMN_DESCRIPTION . "`,`" . ArticleConnector::$COLUMN_URL_LINK . "`) VALUES(?,?,?,?)");
+			$this->createStatement = $mysqli->prepare("INSERT INTO " . ArticleConnector::$TABLE_NAME . "(`" . ArticleConnector::$COLUMN_TITLE . "`,`" . ArticleConnector::$COLUMN_DESCRIPTION . "`,`" . ArticleConnector::$COLUMN_URL_LINK . "`) VALUES(?,?,?)");
 			$this->selectStatement = $mysqli->prepare("SELECT * FROM " . ArticleConnector::$TABLE_NAME . " WHERE `" . ArticleConnector::$COLUMN_ID . "` = ?");
 			$this->selectAllStatement = $mysqli->prepare("SELECT * FROM " . ArticleConnector::$TABLE_NAME);
 			$this->deleteStatement = $mysqli->prepare("DELETE FROM " . ArticleConnector::$TABLE_NAME . " WHERE `" . ArticleConnector::$COLUMN_ID . "` = ?");
