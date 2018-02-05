@@ -26,7 +26,14 @@
 			// Update parent
 			if ($child_of != null) {
 				$comment_id = $conn->insert_id;
-				if (!$CommentConnector->updateChildren($child_of, $comment_id)) {
+				$parent = $CommentConnector->select($child_of);
+				$children = $parent['children'];
+				if ($children != null || $children != 0) {
+					$children = $children . "," . $comment_id;
+				} else {
+					$children = $comment_id;
+				}
+				if (!$CommentConnector->updateChildren($child_of, $children)) {
 					$response['message'] = "Warning: Parent not updated";
 				}
 			}
