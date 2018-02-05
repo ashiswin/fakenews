@@ -28,9 +28,9 @@
 				$comment_id = $conn->insert_id;
 				$parent = $CommentConnector->select($child_of);
 				$children = $parent['children'];
-				$response['test'] = $children;
-				if ($children != null || $children != 0) {
+				if ($children != null && $children != "0") {
 					$children = $children . "," . $comment_id;
+					$response['test'] = $children;
 				} else {
 					$children = $comment_id;
 				}
