@@ -14,12 +14,12 @@
 		public static $COLUMN_CHILD_OF = "child_of";
 		public static $COLUMN_CHILDREN = "children";
 
-
 		private $createStatement = NULL;
 		private $selectStatement = NULL;
 		private $selectAllStatement = NULL;
 		private $updateStatement = NULL;
 		private $deleteStatement = NULL;
+		
 		function __construct($mysqli) {
 			if($mysqli->connect_errno > 0){
 				die('Unable to connect to database [' . $mysqli->connect_error . ']');
