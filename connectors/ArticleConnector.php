@@ -10,12 +10,14 @@
 		public static $COLUMN_DATE_ADDED = "date_added";
 		public static $COLUMN_UPVOTE = "upvote";
 		public static $COLUMN_DOWNVOTE = "downvote";
+		public static $COLUMN_NO_VISITS = "no_visits";
 
 
 		private $createStatement = NULL;
 		private $selectStatement = NULL;
 		private $selectAllStatement = NULL;
 		private $updateStatement = NULL;
+		private $addViewCountStatement = NULL;
 		private $deleteStatement = NULL;
 		function __construct($mysqli) {
 			if($mysqli->connect_errno > 0){
@@ -28,6 +30,7 @@
 			$this->selectStatement = $mysqli->prepare("SELECT * FROM " . ArticleConnector::$TABLE_NAME . " WHERE `" . ArticleConnector::$COLUMN_ID . "` = ?");
 			$this->selectAllStatement = $mysqli->prepare("SELECT * FROM " . ArticleConnector::$TABLE_NAME);
 			$this->deleteStatement = $mysqli->prepare("DELETE FROM " . ArticleConnector::$TABLE_NAME . " WHERE `" . ArticleConnector::$COLUMN_ID . "` = ?");
+			$this->addViewCountStatement = $mysqli->prepare("UPDATE " . CommentConnector::$TABLE_NAME . " SET `" . CommentConnector::$COLUMN_NO_VISITS . "` = `" . CommentConnector::$COLUMN_NO_VISITS . "`+1 WHERE `" . CommentConnector::$COLUMN_ID . "` =?");
 		}
 
 		public function create($title, $description, $url_link) {
@@ -55,6 +58,13 @@
 		public function delete($id) {
 			$this->deleteStatement->bind_param("i", $id);
 			if(!$this->deleteStatement->execute()) return false;
+
+			return true;
+		}
+
+		public function addViews($id) {
+			$this->addViewCountStatement->bind_param("i", $id);
+			if(!$this->addViewCountStatement->execute()) return false;
 
 			return true;
 		}
