@@ -26,9 +26,9 @@
 			// Update parent
 			if ($child_of != null) {
 				$comment_id = $conn->insert_id;
-				$response['test'] = $comment_id;
 				$parent = $CommentConnector->select($child_of);
 				$children = $parent['children'];
+				$response['test'] = $children;
 				if ($children != null || $children != 0) {
 					$children = $children . "," . $comment_id;
 				} else {
