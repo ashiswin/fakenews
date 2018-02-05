@@ -19,7 +19,7 @@
 		private $selectAllStatement = NULL;
 		private $updateStatement = NULL;
 		private $deleteStatement = NULL;
-		
+
 		function __construct($mysqli) {
 			if($mysqli->connect_errno > 0){
 				die('Unable to connect to database [' . $mysqli->connect_error . ']');
@@ -27,14 +27,14 @@
 
 			$this->mysqli = $mysqli;
 
-			$this->createStatement = $mysqli->prepare("INSERT INTO " . CommentConnector::$TABLE_NAME . "(`" . CommentConnector::$COLUMN_USERID . "`,`" . CommentConnector::$COLUMN_CONTENT . "`,`" . CommentConnector::$COLUMN_TITLE . "`,`" . CommentConnector::$COLUMN_ARTICLEID . "`) VALUES(?,?,?,?)");
+			$this->createStatement = $mysqli->prepare("INSERT INTO " . CommentConnector::$TABLE_NAME . "(`" . CommentConnector::$COLUMN_USERID . "`,`" . CommentConnector::$COLUMN_CONTENT . "`,`" . CommentConnector::$COLUMN_TITLE . "`,`" . CommentConnector::$COLUMN_ARTICLEID . "`,`" . CommentConnector::$COLUMN_CHILD_OF . "`) VALUES(?,?,?,?,?)");
 			$this->selectStatement = $mysqli->prepare("SELECT * FROM " . CommentConnector::$TABLE_NAME . " WHERE `" . CommentConnector::$COLUMN_ID . "` = ?");
 			$this->selectAllStatement = $mysqli->prepare("SELECT * FROM " . CommentConnector::$TABLE_NAME);
 			$this->deleteStatement = $mysqli->prepare("DELETE FROM " . CommentConnector::$TABLE_NAME . " WHERE `" . CommentConnector::$COLUMN_ID . "` = ?");
 		}
 
-		public function create($userId, $content, $title, $articleId) {
-			$this->createStatement->bind_param("issi", $userId, $content, $title, $articleId);
+		public function create($userId, $content, $title, $articleId, $child_of) {
+			$this->createStatement->bind_param("issii", $userId, $content, $title, $articleId, $child_of);
 			return $this->createStatement->execute();
 		}
 

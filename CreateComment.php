@@ -8,9 +8,15 @@
 		$content = $_POST['content'];
 		$title = $_POST['title'];
 
+		if (isset($_POST['child_of'])) {
+			$child_of = $_POST['child_of'];
+		} else {
+			$child_of = null;
+		}
+
 		$CommentConnector = new CommentConnector($conn);
 
-		if(!$CommentConnector->create($userId, $content, $title, $articleId)) {
+		if(!$CommentConnector->create($userId, $content, $title, $articleId, $null)) {
 			$response['success'] = false;
 			$response['message'] = "Failed to create comment!";
 		}
