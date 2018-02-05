@@ -22,6 +22,14 @@
 		}
 		else {
 			$response['success'] = true;
+
+			// Update parent
+			if ($child_of != null) {
+				$comment_id = $conn->insert_id;
+				if (!$CommentConnector->updateChildren($child_of, $comment_id)) {
+					$response['message'] = "Warning: Parent not updated";
+				}
+			}
 		}
 	} else {
 		$response['success'] = false;
