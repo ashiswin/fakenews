@@ -9,6 +9,17 @@
 		$response['comments'] = $CommentConnector->selectForArticle($id);
 		$response['success'] = true;
 		
+		// get all the children comments
+		foreach ($response['comments'] as $comment) {
+			$children_ids = explode(',', $comment['children']);
+			$children = array();
+
+			foreach ($children_ids as $child) {
+			array_push($children,$CommentConnector->select($child));
+			$comment['child_comments'] = $children;
+			}
+		}
+
 	} else {
 		$response['success'] = false;
 		$response['message'] = "GET empty";
