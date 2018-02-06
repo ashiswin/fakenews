@@ -17,6 +17,7 @@
 		private $createStatement = NULL;
 		private $selectStatement = NULL;
 		private $selectAllStatement = NULL;
+		private $selectForArticleStatement = NULL;
 		private $updateChildrenStatement = NULL;
 		private $updateUpvoteStatement = NULL;
 		private $updateDownvoteStatement = NULL;
@@ -32,6 +33,7 @@
 			$this->createStatement = $mysqli->prepare("INSERT INTO " . CommentConnector::$TABLE_NAME . "(`" . CommentConnector::$COLUMN_USERID . "`,`" . CommentConnector::$COLUMN_CONTENT . "`,`" . CommentConnector::$COLUMN_TITLE . "`,`" . CommentConnector::$COLUMN_ARTICLEID . "`,`" . CommentConnector::$COLUMN_CHILD_OF . "`) VALUES(?,?,?,?,?)");
 			$this->selectStatement = $mysqli->prepare("SELECT * FROM " . CommentConnector::$TABLE_NAME . " WHERE `" . CommentConnector::$COLUMN_ID . "` = ?");
 			$this->selectAllStatement = $mysqli->prepare("SELECT * FROM " . CommentConnector::$TABLE_NAME);
+			$this->selectForArticleStatement = $mysqli->prepare("SELECT * FROM " . CommentConnector::$TABLE_NAME . " WHERE `" . CommentConnector::$COLUMN_ARTICLEID . "` = ?");
 			$this->deleteStatement = $mysqli->prepare("DELETE FROM " . CommentConnector::$TABLE_NAME . " WHERE `" . CommentConnector::$COLUMN_ID . "` = ?");
 			$this->updateChildrenStatement = $mysqli->prepare("UPDATE " . CommentConnector::$TABLE_NAME . " SET `" . CommentConnector::$COLUMN_CHILDREN . "` =? WHERE `" . CommentConnector::$COLUMN_ID . "` =?");
 			$this->updateUpvoteStatement = $mysqli->prepare("UPDATE " . CommentConnector::$TABLE_NAME . " SET `" . CommentConnector::$COLUMN_UPVOTE . "` = `" . CommentConnector::$COLUMN_UPVOTE . "`+1 WHERE `" . CommentConnector::$COLUMN_ID . "` =?");
@@ -57,6 +59,15 @@
 		public function selectAll() {
 			if(!$this->selectAllStatement->execute()) return false;
 			$result = $this->selectAllStatement->get_result();
+			$resultArray = $result->fetch_all(MYSQLI_ASSOC);
+			return $resultArray;
+		}
+
+		public function selectForArticle($id) {
+			$this->selectForArticleStatement->bind_param("i", $id);
+			if(!$this->selectForArticleStatement->execute()) return false;
+
+			$result = $this->selectForArticleStatement->get_result();
 			$resultArray = $result->fetch_all(MYSQLI_ASSOC);
 			return $resultArray;
 		}
