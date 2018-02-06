@@ -13,6 +13,7 @@
 
 		private $createStatement = NULL;
 		private $selectStatement = NULL;
+		private $selectByEmailStatement = NULL;
 		private $selectAllStatement = NULL;
 		private $updateStatement = NULL;
 		private $deleteStatement = NULL;
@@ -24,8 +25,9 @@
 			$this->mysqli = $mysqli;
 
 			$this->createStatement = $mysqli->prepare("INSERT INTO " . UserConnector::$TABLE_NAME . "(`" . UserConnector::$COLUMN_FIRST_NAME . "`,`" . UserConnector::$COLUMN_LAST_NAME . "`,`" . UserConnector::$COLUMN_EMAIL . "`,`" . UserConnector::$COLUMN_PASSWORDHASH . "`,`" . UserConnector::$COLUMN_SALT . "`) VALUES(?,?,?,?,?)");
-			$this->selectStatement = $mysqli->prepare("SELECT * FROM " . UserConnector::$TABLE_NAME . " WHERE `" . UserConnector::$COLUMN_ID . "` = ?");
-			$this->selectAllStatement = $mysqli->prepare("SELECT * FROM " . UserConnector::$TABLE_NAME);
+			$this->selectStatement = $mysqli->prepare("SELECT `" . UserConnector::$COLUMN_ID . "`,`" . UserConnector::$COLUMN_FIRST_NAME . "`,`" . UserConnector::$COLUMN_LAST_NAME . "`,`" . UserConnector::$COLUMN_EMAIL . "` FROM " . UserConnector::$TABLE_NAME . " WHERE `" . UserConnector::$COLUMN_ID . "` = ?");
+			$this->selectByEmailStatement = $mysqli->prepare("SELECT * FROM " . UserConnector::$TABLE_NAME . " WHERE `" . UserConnector::$COLUMN_EMAIL . "` = ?");
+			$this->selectAllStatement = $mysqli->prepare("SELECT `" . UserConnector::$COLUMN_ID . "`,`" . UserConnector::$COLUMN_FIRST_NAME . "`,`" . UserConnector::$COLUMN_LAST_NAME . "`,`" . UserConnector::$COLUMN_EMAIL . "` FROM " . UserConnector::$TABLE_NAME);
 			$this->deleteStatement = $mysqli->prepare("DELETE FROM " . UserConnector::$TABLE_NAME . " WHERE `" . UserConnector::$COLUMN_ID . "` = ?");
 		}
 
@@ -41,6 +43,17 @@
 			$result = $this->selectStatement->get_result();
 			$resultArray = $result->fetch_assoc();
 			$this->selectStatement->free_result();
+			
+			return $resultArray;
+		}
+
+		public function selectByEmail($email) {
+			$this->selectByEmailStatement->bind_param("s", $id);
+			if(!$this->selectByEmailStatement->execute()) return false;
+
+			$result = $this->selectByEmailStatement->get_result();
+			$resultArray = $result->fetch_assoc();
+			$this->selectByEmailStatement->free_result();
 			
 			return $resultArray;
 		}
