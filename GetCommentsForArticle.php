@@ -10,6 +10,7 @@
 		$response['success'] = true;
 		
 		// get all the children comments
+		$result = array();
 		foreach ($response['comments'] as $comment) {
 			$children_ids = explode(',', $comment['children']);
 			$children = array();
@@ -18,7 +19,9 @@
 			array_push($children,$CommentConnector->select($child));
 			$comment['child_comments'] = $children;
 			}
+			array_push($result, $comment);
 		}
+		$response['comments'] = $result;
 
 	} else {
 		$response['success'] = false;
