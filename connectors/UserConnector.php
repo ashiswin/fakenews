@@ -48,7 +48,7 @@
 		}
 
 		public function selectByEmail($email) {
-			$this->selectByEmailStatement->bind_param("s", $id);
+			$this->selectByEmailStatement->bind_param("s", $email);
 			if(!$this->selectByEmailStatement->execute()) return false;
 
 			$result = $this->selectByEmailStatement->get_result();
