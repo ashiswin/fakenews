@@ -1,12 +1,16 @@
 <?php
+	require_once 'utils/database.php'; // Provides handle to sql session
+	require_once 'connectors/UserConnector.php'; // Gives all the functions related to User
+
+	header("Access-Control-Allow-Headers: Content-Type");
+	header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+	header("Access-Control-Allow-Origin: *");
+
     // Call this script when someone is loging in
 	$email = trim($_POST['email']);
 	$password = trim($_POST['password']);
 	
 	$response = array();
-	
-	require_once 'utils/database.php'; // Provides handle to sql session
-	require_once 'connectors/UserConnector.php'; // Gives all the functions related to User
 	
 	$UserConnector = new UserConnector($conn);
 	$result = $UserConnector->selectByEmail($email); // Check if email exists in Database
