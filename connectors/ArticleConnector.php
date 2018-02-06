@@ -19,6 +19,9 @@
 		private $updateStatement = NULL;
 		private $addViewCountStatement = NULL;
 		private $deleteStatement = NULL;
+		private $upvoteStatement = NULL;
+		private $downvoteStatement = NULL;
+
 		function __construct($mysqli) {
 			if($mysqli->connect_errno > 0){
 				die('Unable to connect to database [' . $mysqli->connect_error . ']');
@@ -31,6 +34,8 @@
 			$this->selectAllStatement = $mysqli->prepare("SELECT * FROM " . ArticleConnector::$TABLE_NAME);
 			$this->deleteStatement = $mysqli->prepare("DELETE FROM " . ArticleConnector::$TABLE_NAME . " WHERE `" . ArticleConnector::$COLUMN_ID . "` = ?");
 			$this->addViewCountStatement = $mysqli->prepare("UPDATE " . ArticleConnector::$TABLE_NAME . " SET `" . ArticleConnector::$COLUMN_NO_VISITS . "` = `" . ArticleConnector::$COLUMN_NO_VISITS . "`+1 WHERE `" . ArticleConnector::$COLUMN_ID . "` =?");
+			$this->upvoteStatement = $mysqli->prepare("UPDATE " . ArticleConnector::$TABLE_NAME . " SET `" . ArticleConnector::$COLUMN_UPVOTE . "` = `" . ArticleConnector::$COLUMN_UPVOTE . "`+1 WHERE `" . ArticleConnector::$COLUMN_ID . "` =?");
+			$this->downvoteStatement = $mysqli->prepare("UPDATE " . ArticleConnector::$TABLE_NAME . " SET `" . ArticleConnector::$COLUMN_DOWNVOTE . "` = `" . ArticleConnector::$COLUMN_DOWNVOTE . "`+1 WHERE `" . ArticleConnector::$COLUMN_ID . "` =?");
 		}
 
 		public function create($title, $description, $url_link) {
@@ -65,6 +70,20 @@
 		public function addViews($id) {
 			$this->addViewCountStatement->bind_param("i", $id);
 			if(!$this->addViewCountStatement->execute()) return false;
+
+			return true;
+		}
+
+		public function upvote($id) {
+			$this->upvoteStatement->bind_param("i", $id);
+			if(!$this->upvoteStatement->execute()) return false;
+
+			return true;
+		}
+
+		public function downvote($id) {
+			$this->downvoteStatement->bind_param("i", $id);
+			if(!$this->downvoteStatement->execute()) return false;
 
 			return true;
 		}
