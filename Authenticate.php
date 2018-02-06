@@ -23,8 +23,11 @@
 		$passwordHash = hash('sha512', ($password . $result[UserConnector::$COLUMN_SALT]));
 		if(strcmp($passwordHash, $result[UserConnector::$COLUMN_PASSWORDHASH]) == 0) { // If password matches
 			$response["success"] = true;
-			$response["adminid"] = $result[UserConnector::$COLUMN_ID]; // Record the admin id
-		}
+			$response["id"] = $result[UserConnector::$COLUMN_ID]; // Record the admin id
+			$response["first_name"] = $result[UserConnector::$COLUMN_FIRST_NAME];
+			$response["last_name"] = $result[UserConnector::$COLUMN_LAST_NAME];
+			$response["email"] = $result[UserConnector::$COLUMN_EMAIL];
+ 		}
 		else { // If password does not match
 			$response["success"] = false;
 			$response["message"] = "Invalid email or password!";
