@@ -26,7 +26,7 @@
 			$this->mysqli = $mysqli;
 
 			$this->createStatement = $mysqli->prepare("INSERT INTO " . UserConnector::$TABLE_NAME . "(`" . UserConnector::$COLUMN_FIRST_NAME . "`,`" . UserConnector::$COLUMN_LAST_NAME . "`,`" . UserConnector::$COLUMN_EMAIL . "`,`" . UserConnector::$COLUMN_PASSWORDHASH . "`,`" . UserConnector::$COLUMN_SALT . "`,`" . UserConnector::$COLUMN_ADMIN"`) VALUES(?,?,?,?,?,?)");
-			$this->selectStatement = $mysqli->prepare("SELECT `" . UserConnector::$COLUMN_ID . "`,`" . UserConnector::$COLUMN_FIRST_NAME . "`,`" . UserConnector::$COLUMN_LAST_NAME . "`,`" . UserConnector::$COLUMN_EMAIL . "," . UserConnector::$COLUMN_ADMIN . "` FROM " . UserConnector::$TABLE_NAME . " WHERE `" . UserConnector::$COLUMN_ID . "` = ?");
+			$this->selectStatement = $mysqli->prepare("SELECT `" . UserConnector::$COLUMN_ID . "`,`" . UserConnector::$COLUMN_FIRST_NAME . "`,`" . UserConnector::$COLUMN_LAST_NAME . "`,`" . UserConnector::$COLUMN_EMAIL . "`,`" . UserConnector::$COLUMN_ADMIN . "` FROM " . UserConnector::$TABLE_NAME . " WHERE `" . UserConnector::$COLUMN_ID . "` = ?");
 			$this->selectByEmailStatement = $mysqli->prepare("SELECT * FROM " . UserConnector::$TABLE_NAME . " WHERE `" . UserConnector::$COLUMN_EMAIL . "` = ?");
 			$this->selectAllStatement = $mysqli->prepare("SELECT `" . UserConnector::$COLUMN_ID . "`,`" . UserConnector::$COLUMN_FIRST_NAME . "`,`" . UserConnector::$COLUMN_LAST_NAME . "`,`" . UserConnector::$COLUMN_EMAIL . "`,`" . UserConnector::$COLUMN_ADMIN . "` FROM " . UserConnector::$TABLE_NAME);
 			$this->deleteStatement = $mysqli->prepare("DELETE FROM " . UserConnector::$TABLE_NAME . " WHERE `" . UserConnector::$COLUMN_ID . "` = ?");
