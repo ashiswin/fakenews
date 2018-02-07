@@ -18,7 +18,7 @@
 
 	$UserConnector = new UserConnector($conn);
 
-	if(!$UserConnector->create($first_name, $last_name, $email, $passwordHash, $salt. $admin)) {
+	if(!$UserConnector->create($first_name, $last_name, $email, $passwordHash, $salt, $admin)) {
 		$response['success'] = false;
 		$response['message'] = "Failed to create user!";
 	}
