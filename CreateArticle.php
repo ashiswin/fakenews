@@ -10,7 +10,7 @@
 	$url_link = $_POST['url_link'];
 
 	$ArticleConnector = new ArticleConnector($conn);
-
+	
 	if(!$ArticleConnector->create($title, $description, $url_link)) {
 		$response['success'] = false;
 		$response['message'] = "Failed to create article!";

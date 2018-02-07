@@ -27,6 +27,7 @@
 			$response["first_name"] = $result[UserConnector::$COLUMN_FIRST_NAME];
 			$response["last_name"] = $result[UserConnector::$COLUMN_LAST_NAME];
 			$response["email"] = $result[UserConnector::$COLUMN_EMAIL];
+			$response["admin"] = $result[UserConnector::$COLUMN_ADMIN];
  		}
 		else { // If password does not match
 			$response["success"] = false;
