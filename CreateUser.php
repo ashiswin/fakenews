@@ -11,13 +11,14 @@
 	$last_name = $_POST['last_name'];
 	$email = $_POST['email'];
 	$password = $_POST['password'];
+	$admin = $_POST['admin'];
 	
 	$salt = random_str(10);
 	$passwordHash = hash('sha512', ($password . $salt));
 
 	$UserConnector = new UserConnector($conn);
 
-	if(!$UserConnector->create($first_name, $last_name, $email, $passwordHash, $salt)) {
+	if(!$UserConnector->create($first_name, $last_name, $email, $passwordHash, $salt. $admin)) {
 		$response['success'] = false;
 		$response['message'] = "Failed to create user!";
 	}
