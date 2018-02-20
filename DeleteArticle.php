@@ -6,18 +6,23 @@
 	header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 	header("Access-Control-Allow-Origin: *");
 
-	$id = $_POST['id'];
-
-	$ArticleConnector = new ArticleConnector($conn);
-	$CommentConnector = new CommentConnector($conn);
-
-	$response['article'] = $ArticleConnector->delete($id);
-	if($CommentConnector->deleteByArticle($id)){
-		$response['success'] = true;
-	} else {
+	if(!isset($_POST['id'])){
 		$response['success'] = false;
-		$response['message'] = "Comments for article are not deleted";
-	}
+		$response['message'] = 'id is not set';
+	} else {
+		$id = $_POST['id'];
 
+		$ArticleConnector = new ArticleConnector($conn);
+		$CommentConnector = new CommentConnector($conn);
+
+		$response['article'] = $ArticleConnector->delete($id);
+		if($CommentConnector->deleteByArticle($id)){
+			$response['success'] = true;
+		} else {
+			$response['success'] = false;
+			$response['message'] = "Comments for article are not deleted";
+		}
+	}
+	
 	echo(json_encode($response));
 ?>
