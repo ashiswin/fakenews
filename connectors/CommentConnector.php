@@ -22,6 +22,7 @@
 		private $updateUpvoteStatement = NULL;
 		private $updateDownvoteStatement = NULL;
 		private $deleteStatement = NULL;
+		private $deleteByArticleStatement = NULL;
 
 		function __construct($mysqli) {
 			if($mysqli->connect_errno > 0){
@@ -35,6 +36,7 @@
 			$this->selectAllStatement = $mysqli->prepare("SELECT * FROM " . CommentConnector::$TABLE_NAME);
 			$this->selectForArticleStatement = $mysqli->prepare("SELECT * FROM " . CommentConnector::$TABLE_NAME . " WHERE `" . CommentConnector::$COLUMN_ARTICLEID . "` = ? AND `" . CommentConnector::$COLUMN_CHILD_OF . "` IS NULL OR `" . CommentConnector::$COLUMN_ARTICLEID . "` = ? AND `" . CommentConnector::$COLUMN_CHILD_OF . "`=0");
 			$this->deleteStatement = $mysqli->prepare("DELETE FROM " . CommentConnector::$TABLE_NAME . " WHERE `" . CommentConnector::$COLUMN_ID . "` = ?");
+			$this->deleteByArticleStatement = $mysqli->prepare("DELETE FROM " . CommentConnector::$TABLE_NAME . " WHERE `" . CommentConnector::$COLUMN_ARTICLEID . "` = ?");
 			$this->updateChildrenStatement = $mysqli->prepare("UPDATE " . CommentConnector::$TABLE_NAME . " SET `" . CommentConnector::$COLUMN_CHILDREN . "` =? WHERE `" . CommentConnector::$COLUMN_ID . "` =?");
 			$this->updateUpvoteStatement = $mysqli->prepare("UPDATE " . CommentConnector::$TABLE_NAME . " SET `" . CommentConnector::$COLUMN_UPVOTE . "` = `" . CommentConnector::$COLUMN_UPVOTE . "`+1 WHERE `" . CommentConnector::$COLUMN_ID . "` =?");
 			$this->updateDownvoteStatement = $mysqli->prepare("UPDATE " . CommentConnector::$TABLE_NAME . " SET `" . CommentConnector::$COLUMN_DOWNVOTE . "` = `" . CommentConnector::$COLUMN_DOWNVOTE . "`+1 WHERE `" . CommentConnector::$COLUMN_ID . "` =?");
@@ -75,6 +77,13 @@
 		public function delete($id) {
 			$this->deleteStatement->bind_param("i", $id);
 			if(!$this->deleteStatement->execute()) return false;
+
+			return true;
+		}
+
+		public function deleteByArticle($id) {
+			$this->deleteByArticleStatement->bind_param("i", $id);
+			if(!$this->deleteByArticleStatement->execute()) return false;
 
 			return true;
 		}

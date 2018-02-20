@@ -8,9 +8,15 @@
 	$id = $_POST['id'];
 
 	$ArticleConnector = new ArticleConnector($conn);
+	$CommentConnector = new CommentConnector($conn);
 
 	$response['article'] = $ArticleConnector->delete($id);
-	$response['success'] = true;
+	if($CommentConnector->deleteByArticle($id)){
+		$response['success'] = true;
+	} else {
+		$response['success'] = false;
+		$response['message'] = "Comments for article are not deleted";
+	}
 
 	echo(json_encode($response));
 ?>
