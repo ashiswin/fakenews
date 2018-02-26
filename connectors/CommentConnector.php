@@ -12,8 +12,9 @@
 		public static $COLUMN_DOWNVOTE = "downvote";
 		public static $COLUMN_ARTICLEID = "articleId";
 		public static $COLUMN_CHILD_OF = "child_of";
-		public static $COLUMN_CHILDREN = "children";
-		public static $COLUMN_
+		public static $COLUMN_CHILDREN = "child_comments";
+		public static $COLUMN_CHILDREN_COUNT = "children";
+		public static $COLUMN_COMMENT_VOTERS = "comment_voters";
 
 		private $createStatement = NULL;
 		private $selectStatement = NULL;
