@@ -9,7 +9,7 @@
 	$description = $_POST['description'];
 	$url_link = $_POST['url_link'];
 	$reported_by = $_POST['reported_by'];
-	$category = $_POST['category'];
+	$category = "";
 	
 	$ArticleConnector = new ArticleConnector($conn);
 	
