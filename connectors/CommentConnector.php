@@ -13,6 +13,7 @@
 		public static $COLUMN_ARTICLEID = "articleId";
 		public static $COLUMN_CHILD_OF = "child_of";
 		public static $COLUMN_CHILDREN = "children";
+		public static $COLUMN_
 
 		private $createStatement = NULL;
 		private $selectStatement = NULL;

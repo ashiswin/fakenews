@@ -11,7 +11,10 @@
 		public static $COLUMN_UPVOTE = "upvote";
 		public static $COLUMN_DOWNVOTE = "downvote";
 		public static $COLUMN_NO_VISITS = "no_visits";
-
+		public static $COLUMN_REPORTED_BY = "reported_by";
+		public static $COLUMN_CATEGORY = "category";
+		public static $COLUMN_SCORE = "score";
+		public static $COLUMN_ARTICLE_VOTERS = "article_voters";
 
 		private $createStatement = NULL;
 		private $selectStatement = NULL;
@@ -29,7 +32,7 @@
 
 			$this->mysqli = $mysqli;
 
-			$this->createStatement = $mysqli->prepare("INSERT INTO " . ArticleConnector::$TABLE_NAME . "(`" . ArticleConnector::$COLUMN_TITLE . "`,`" . ArticleConnector::$COLUMN_DESCRIPTION . "`,`" . ArticleConnector::$COLUMN_URL_LINK . "`) VALUES(?,?,?)");
+			$this->createStatement = $mysqli->prepare("INSERT INTO " . ArticleConnector::$TABLE_NAME . "(`" . ArticleConnector::$COLUMN_TITLE . "`,`" . ArticleConnector::$COLUMN_DESCRIPTION . "`,`" . ArticleConnector::$COLUMN_URL_LINK . "`,`" . ArticleConnector::$COLUMN_REPORTED_BY . "`,`" . ArticleConnector::$COLUMN_CATEGORY . "`) VALUES(?,?,?,?,?)");
 			$this->selectStatement = $mysqli->prepare("SELECT * FROM " . ArticleConnector::$TABLE_NAME . " WHERE `" . ArticleConnector::$COLUMN_ID . "` = ?");
 			$this->selectAllStatement = $mysqli->prepare("SELECT * FROM " . ArticleConnector::$TABLE_NAME);
 			$this->deleteStatement = $mysqli->prepare("DELETE FROM " . ArticleConnector::$TABLE_NAME . " WHERE `" . ArticleConnector::$COLUMN_ID . "` = ?");
@@ -38,8 +41,8 @@
 			$this->downvoteStatement = $mysqli->prepare("UPDATE " . ArticleConnector::$TABLE_NAME . " SET `" . ArticleConnector::$COLUMN_DOWNVOTE . "` = `" . ArticleConnector::$COLUMN_DOWNVOTE . "`+1 WHERE `" . ArticleConnector::$COLUMN_ID . "` =?");
 		}
 
-		public function create($title, $description, $url_link) {
-			$this->createStatement->bind_param("sss", $title, $description, $url_link);
+		public function create($title, $description, $url_link, $reported_by, $category) {
+			$this->createStatement->bind_param("sssss", $title, $description, $url_link, $reported_by, $category);
 			return $this->createStatement->execute();
 		}
 

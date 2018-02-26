@@ -8,10 +8,12 @@
 	$title = $_POST['title'];
 	$description = $_POST['description'];
 	$url_link = $_POST['url_link'];
-
+	$reported_by = $_POST['reported_by'];
+	$category = $_POST['category'];
+	
 	$ArticleConnector = new ArticleConnector($conn);
 	
-	if(!$ArticleConnector->create($title, $description, $url_link)) {
+	if(!$ArticleConnector->create($title, $description, $url_link, $reported_by, $category)) {
 		$response['success'] = false;
 		$response['message'] = "Failed to create article!";
 	}
