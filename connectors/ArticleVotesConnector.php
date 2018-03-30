@@ -20,10 +20,10 @@
 
 			$this->mysqli = $mysqli;
 
-			$this->createStatement = $mysqli->prepare("INSERT INTO " . UserConnector::$TABLE_NAME . "(`" . UserConnector::$COLUMN_ARTICLEID . "`, `" . UserConnector::$COLUMN_USERID . "`, `" . UserConnector::$COLUMN_UPVOTE . "`) VALUES(?,?,?)");
-			$this->selectByArticleStatement = $mysqli->prepare("SELECT * WHERE `" . UserConnector::$COLUMN_ARTICLEID . "` = ?");
-			$this->selectByUserStatement = $mysqli->prepare("SELECT * WHERE `" . UserConnector::$COLUMN_USERID . "` = ?");
-			$this->deleteStatement = $mysqli->prepare("DELETE FROM " . UserConnector::$TABLE_NAME . " WHERE `" . UserConnector::$COLUMN_ARTICLEID . "` = ? AND `" . UserConnector::$COLUMN_USERID . "` = ?");
+			$this->createStatement = $mysqli->prepare("INSERT INTO " . ArticleVotesConnector::$TABLE_NAME . "(`" . ArticleVotesConnector::$COLUMN_ARTICLEID . "`, `" . ArticleVotesConnector::$COLUMN_USERID . "`, `" . ArticleVotesConnector::$COLUMN_UPVOTE . "`) VALUES(?,?,?)");
+			$this->selectByArticleStatement = $mysqli->prepare("SELECT * WHERE `" . ArticleVotesConnector::$COLUMN_ARTICLEID . "` = ?");
+			$this->selectByUserStatement = $mysqli->prepare("SELECT * WHERE `" . ArticleVotesConnector::$COLUMN_USERID . "` = ?");
+			$this->deleteStatement = $mysqli->prepare("DELETE FROM " . ArticleVotesConnector::$TABLE_NAME . " WHERE `" . ArticleVotesConnector::$COLUMN_ARTICLEID . "` = ? AND `" . ArticleVotesConnector::$COLUMN_USERID . "` = ?");
 		}
 
 		public function create($article, $user, $upvote) {
