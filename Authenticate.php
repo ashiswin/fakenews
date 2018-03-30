@@ -1,7 +1,8 @@
 <?php
 	require_once 'utils/database.php'; // Provides handle to sql session
 	require_once 'connectors/UserConnector.php'; // Gives all the functions related to User
-
+	require_once 'connectors/ArticleVotesConnector.php';
+	
 	header("Access-Control-Allow-Headers: Content-Type");
 	header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 	header("Access-Control-Allow-Origin: *");
@@ -13,6 +14,8 @@
 	$response = array();
 	
 	$UserConnector = new UserConnector($conn);
+	$ArticleVotesConnector = new ArticleVotesConnector($conn);
+	
 	$result = $UserConnector->selectByEmail($email); // Check if email exists in Database
 
 	if(!$result) { // If it doesn't exist
@@ -28,6 +31,12 @@
 			$response["last_name"] = $result[UserConnector::$COLUMN_LAST_NAME];
 			$response["email"] = $result[UserConnector::$COLUMN_EMAIL];
 			$response["admin"] = $result[UserConnector::$COLUMN_ADMIN];
+			
+			$voted_articles = $ArticleVotesConnector->selectByUser($result[UserConnector::$COLUMN_ID]);
+			$response["voted_articles"] = array();
+			for($i = 0; $i < count($voterd_articles); $i++) {
+				array_push($response['article']['voted_articles'], $voted_articles[$i]['user_id']);
+			}
  		}
 		else { // If password does not match
 			$response["success"] = false;
