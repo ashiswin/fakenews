@@ -14,7 +14,7 @@
 		$ArticleConnector = new ArticleConnector($conn);
 		$ArticleVotesConnector = new ArticleVotesConnector($conn);
 		
-		if(!$ArticleConnector->downvote($article) || !$ArticleVotesConnector->create($article, $user, $upvote) {
+		if(!$ArticleConnector->downvote($article) || !$ArticleVotesConnector->create($article, $user, $upvote)) {
 			$response['success'] = false;
 			$response['message'] = "Failed to downvote article!";
 		}
