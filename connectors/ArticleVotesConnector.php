@@ -3,8 +3,8 @@
 		private $mysqli = NULL;
 
 		public static $TABLE_NAME = "articleVotes";
-		public static $COLUMN_ARTICLEID = "articleId";
-		public static $COLUMN_USERID = "userId";
+		public static $COLUMN_ARTICLEID = "article_id";
+		public static $COLUMN_USERID = "user_id";
 		public static $COLUMN_UPVOTE = "upvote";
 
 
