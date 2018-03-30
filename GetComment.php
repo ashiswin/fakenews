@@ -26,7 +26,7 @@
 		}
 		$response['comment']['child_comments'] = $children;
 		
-		$voters = $CommentVotesConnector->selectByUser($result[UserConnector::$COLUMN_ID]);
+		$voters = $CommentVotesConnector->selectByComment($id);
 		$response['comment']["comment_voters"] = array();
 		for($i = 0; $i < count($voters); $i++) {
 			array_push($response['comment']["comment_voters"], $voters[$i]['user_id']);
