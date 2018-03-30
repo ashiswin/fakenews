@@ -35,7 +35,7 @@
 			$voted_articles = $ArticleVotesConnector->selectByUser($result[UserConnector::$COLUMN_ID]);
 			$response["voted_articles"] = array();
 			for($i = 0; $i < count($voted_articles); $i++) {
-				array_push($response['article']['voted_articles'], $voted_articles[$i]['user_id']);
+				array_push($response['voted_articles'], $voted_articles[$i]['user_id']);
 			}
  		}
 		else { // If password does not match
