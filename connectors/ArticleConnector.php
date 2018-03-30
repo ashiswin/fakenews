@@ -14,7 +14,6 @@
 		public static $COLUMN_REPORTED_BY = "reported_by";
 		public static $COLUMN_CATEGORY = "category";
 		public static $COLUMN_SCORE = "score";
-		public static $COLUMN_ARTICLE_VOTERS = "article_voters";
 
 		private $createStatement = NULL;
 		private $selectStatement = NULL;
