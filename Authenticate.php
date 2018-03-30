@@ -34,7 +34,7 @@
 			
 			$voted_articles = $ArticleVotesConnector->selectByUser($result[UserConnector::$COLUMN_ID]);
 			$response["voted_articles"] = array();
-			for($i = 0; $i < count($voterd_articles); $i++) {
+			for($i = 0; $i < count($voted_articles); $i++) {
 				array_push($response['article']['voted_articles'], $voted_articles[$i]['user_id']);
 			}
  		}
