@@ -21,8 +21,8 @@
 			$this->mysqli = $mysqli;
 
 			$this->createStatement = $mysqli->prepare("INSERT INTO " . ArticleVotesConnector::$TABLE_NAME . "(`" . ArticleVotesConnector::$COLUMN_ARTICLEID . "`, `" . ArticleVotesConnector::$COLUMN_USERID . "`, `" . ArticleVotesConnector::$COLUMN_UPVOTE . "`) VALUES(?,?,?)");
-			$this->selectByArticleStatement = $mysqli->prepare("SELECT * WHERE `" . ArticleVotesConnector::$COLUMN_ARTICLEID . "` = ?");
-			$this->selectByUserStatement = $mysqli->prepare("SELECT * WHERE `" . ArticleVotesConnector::$COLUMN_USERID . "` = ?");
+			$this->selectByArticleStatement = $mysqli->prepare("SELECT * FROM " . ArticleVotesConnector::$TABLE_NAME . " WHERE `" . ArticleVotesConnector::$COLUMN_ARTICLEID . "` = ?");
+			$this->selectByUserStatement = $mysqli->prepare("SELECT * FROM " . ArticleVotesConnector::$TABLE_NAME . " WHERE `" . ArticleVotesConnector::$COLUMN_USERID . "` = ?");
 			$this->deleteStatement = $mysqli->prepare("DELETE FROM " . ArticleVotesConnector::$TABLE_NAME . " WHERE `" . ArticleVotesConnector::$COLUMN_ARTICLEID . "` = ? AND `" . ArticleVotesConnector::$COLUMN_USERID . "` = ?");
 		}
 
