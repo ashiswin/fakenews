@@ -6,7 +6,7 @@
 	header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 	header("Access-Control-Allow-Origin: *");
 
-	if (isset($_POST['articleId'])) {
+	if (isset($_POST['article_id'])) {
 		$article = $_POST['article_id'];
 		$user = $_POST['user_id'];
 		$upvote = 0;
