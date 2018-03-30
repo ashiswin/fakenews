@@ -14,7 +14,7 @@
 		$CommentConnector = new CommentConnector($conn);
 		$CommentVotesConnector = new CommentVotesConnector($conn);
 
-		if(!$CommentConnector->updateDownvote($id) || !$CommentVotesConnector->create($comment, $user, $upvote)) {
+		if(!$CommentConnector->updateDownvote($comment) || !$CommentVotesConnector->create($comment, $user, $upvote)) {
 			$response['success'] = false;
 			$response['message'] = "Failed to downvote comment!";
 		}
