@@ -14,6 +14,7 @@
 		$id = $_GET['id'];
 
 		$CommentConnector = new CommentConnector($conn);
+		$CommentVotesConnector = new CommentVotesConnector($conn);
 
 		$response['comment'] = $CommentConnector->select($id);
 		$response['success'] = true;	
