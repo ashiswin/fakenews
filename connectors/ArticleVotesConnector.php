@@ -1,5 +1,5 @@
 <?php
-	class UserConnector {
+	class ArticleVotesConnector {
 		private $mysqli = NULL;
 
 		public static $TABLE_NAME = "articleVotes";
